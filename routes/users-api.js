@@ -9,10 +9,9 @@ const express = require("express");
 const router = express.Router();
 const usersDB = require("../db/queries/users");
 const bcrypt = require("bcryptjs");
-const userQueries = require("../db/queries/users");
 
 router.get("/", (req, res) => {
-  userQueries
+  usersDB
     .getUsers()
     .then((users) => {
       res.json({ users });
