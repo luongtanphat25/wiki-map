@@ -57,7 +57,7 @@ $(() => {
             </ul>
 
             <div>
-              <a>Hello, ${user.name}</a>
+              <a class="text-white p-3">Hello, ${user.name}</a>
               <button class="btn btn-light" id="logout_button">Log out</button>
             </div>
           </div>
@@ -71,12 +71,19 @@ $(() => {
 
   window.header.update = updateHeader;
 
-  getMyDetail().then((json) => {
+  $.ajax({ url: "api/users/me" }).then((json) => {
+    updateHeader(json.user);
+  });
+
+  $.ajax({
+    url: "/api/users/me",
+  }).then((json) => {
+    console.log("update header called");
     updateHeader(json.user);
   });
 
   $("header").on("click", "#home", () => {
-    //
+    views_manager.show("listing");
   });
 
   $("header").on("click", "#login_button", () => {
@@ -86,8 +93,11 @@ $(() => {
     views_manager.show("signUp");
   });
   $("header").on("click", "#logout_button", () => {
-    logOut().then(() => {
-      header.update(null);
+    $.ajax({
+      method: "POST",
+      url: "/api/users/logout",
+    }).then(() => {
+      window.header.update(null);
     });
   });
 });

@@ -1,10 +1,8 @@
-/* eslint-disable camelcase */
-
 $(() => {
   const $main = $("#main-content");
   window.views_manager = {};
-
   window.views_manager.show = (item) => {
+    $mapListings.detach();
     $logInForm.detach();
     $signUpForm.detach();
 

@@ -32,8 +32,15 @@ router.post("/", (req, res) => {
         usersDB
           .addUser(user)
           .then((result) => {
-            req.session.userId = result.id;
-            res.send("sign-up successfully");
+            req.session.userID = result.id;
+            console.log(req.session.userID);
+            res.send({
+              user: {
+                name: user.name,
+                email: user.email,
+                id: user.id,
+              },
+            });
           })
           .catch((err) => console.log(err));
       } else {
@@ -50,10 +57,12 @@ router.post("/login", (req, res) => {
     .getUserByEmail(email)
     .then((user) => {
       if (!bcrypt.compareSync(password, user.password)) {
+        console.log("incorrect");
         return res.send({ error: "incorret email/password" });
       }
 
       req.session.userID = user.id;
+      console.log("loged in, session: ", req.session.userID);
       res.send({
         user: {
           name: user.name,

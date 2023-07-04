@@ -1,4 +1,5 @@
+/* eslint-disable camelcase */
 $(() => {
-  console.log("Get all maps");
+  // views_manager.show('listings');
 });
 

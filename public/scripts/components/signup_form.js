@@ -1,13 +1,11 @@
 $(() => {
   const $signUpForm = $(`
-  <div class="position-absolute top-50 start-50 translate-middle" id="sign-in">
+  <form id="sign-up-form" class="position-absolute top-50 start-50 translate-middle">
       <div class="container p-3 border border-primary rounded bg-dark text-white">
         <h3>Create an account</h3>
         <p class="text-secondary">
           Create an account to create map to save your favorite places
         </p>
-
-        <form id="sign-up-form">
           <div class="mb-3">
             <label for="name" class="form-label">User name</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Plase enter your username" required/>
@@ -23,17 +21,15 @@ $(() => {
           </div>
 
           <div class=" d-grid">
-            <button type="submit" class="btn btn-info">Sign-in</button>
+            <button class="btn btn-info">Sign-in</button>
           </div>
-
-        </form>
       </div>
-    </div>
+    </form>
   `);
 
   window.$signUpForm = $signUpForm;
 
-  $signUpForm.on("submit", (event) => {
+  $signUpForm.on("submit", function(event) {
     event.preventDefault();
 
     const data = $(this).serialize();
@@ -42,8 +38,9 @@ $(() => {
       url: "/api/users/",
       data,
     }).then((json) => {
-      header.update(json.user);
-      views_manager.show("listings");
+      console.log("after sign-up: ", json);
+      window.header.update(json.user);
+      window.views_manager.show("listings");
     });
   });
 });
