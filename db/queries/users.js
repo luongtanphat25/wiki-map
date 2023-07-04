@@ -14,7 +14,7 @@ const addUser = (user) => {
     .then((result) => {
       return result.rows[0];
     })
-    .catch((err) => console.log(err));
+    .catch((e) => console.log(e));
 };
 
 const getUserByEmail = (email) => {
@@ -23,7 +23,16 @@ const getUserByEmail = (email) => {
     .then((result) => {
       return result.rows[0];
     })
-    .catch((err) => console.log(err));
+    .catch((e) => console.log(e));
 };
 
-module.exports = { getUsers, addUser, getUserByEmail };
+const getUserByID = (id) => {
+  return db
+    .query(`SELECT * FROM users WHERE id = $1`, [id])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((e) => console.log(e));
+};
+
+module.exports = { getUsers, addUser, getUserByEmail, getUserByID };

@@ -22,6 +22,7 @@ router.get("/", (req, res) => {
     });
 });
 
+//Sign-up
 router.post("/", (req, res) => {
   const user = req.body;
   user.password = bcrypt.hashSync(user.password, 12);
@@ -32,14 +33,67 @@ router.post("/", (req, res) => {
         usersDB
           .addUser(user)
           .then((result) => {
-            res.send("User created.");
+            req.session.userId = result.id;
+            res.send("sign-up successfully");
           })
           .catch((err) => console.log(err));
       } else {
         res.send("Email already registered.");
       }
     })
-    .catch((err) => console.log(err));
+    .catch((e) => res.send(e));
+});
+
+//Log-in
+router.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  usersDB
+    .getUserByEmail(email)
+    .then((user) => {
+      if (!bcrypt.compareSync(password, user.password)) {
+        return res.send({ error: "incorret email/password" });
+      }
+
+      req.session.userID = user.id;
+      res.send({
+        user: {
+          name: user.name,
+          email: user.email,
+          id: user.id,
+        },
+      });
+    })
+    .catch((e) => res.send(e));
+});
+
+//Log-out
+router.post("/logout", (req, res) => {
+  req.session.userID = null;
+  res.send({});
+});
+
+//Get current user's info
+router.get("/me", (req, res) => {
+  const userID = req.session.userID;
+  if (!userID) {
+    return res.send({ message: "not logged in" });
+  }
+  usersDB
+    .getUserByID(userID)
+    .then((user) => {
+      if (!user) {
+        return res.send({ error: "no user found" });
+      }
+
+      res.send({
+        user: {
+          name: user.name,
+          email: user.email,
+          id: userID,
+        },
+      });
+    })
+    .catch((e) => res.send(e));
 });
 
 module.exports = router;
