@@ -1,4 +1,8 @@
--- Widgets table seeds here (Example)
-INSERT INTO widgets (name, user_id) VALUES ('Sprockets', 1);
-INSERT INTO widgets (name, user_id) VALUES ('Chains', 2);
-INSERT INTO widgets (name, user_id) VALUES ('Bearings', 2);
+-- Drop and recreate Widgets table (Example)
+
+DROP TABLE IF EXISTS widgets CASCADE;
+CREATE TABLE widgets (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id),
+  name VARCHAR(255) NOT NULL
+);
