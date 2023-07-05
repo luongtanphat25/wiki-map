@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const mapsDB = require("../db/queries/maps");
-const bcrypt = require("bcryptjs");
 
 router.get("/", (req, res) => {
   mapsDB

@@ -48,27 +48,14 @@
 
   <body>
     <%- include('partials/_header') %>
+    <div id="map"
+        style="width: 100%; height: 40vh;"
+      ></div>
 
-    <div class="containter row">
-      <!-- <div id="map" class="col col-sm-1 col-md-6 col-lg-8 bg-secondary" style="width: 500px; height: 100vh;"></div> -->
+      <h3 class="text-center mt-3">List of points</h3>
+      <div id="points" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 p-3" style="display: flex; justify-content: space-around;">
 
-      <div id="points" class="col col-sm-1 col-md-6 col-lg-4 p-3">
-        <h3>List of points</h3>
-        <div class="card text-bg-dark mb-3">
-          <div class="card-header">Card title</div>
-          <img
-            src="https://media.blogto.com/articles/2022329-indigo.jpg?w=2048&cmd=resize_then_crop&height=1365&quality=70"
-            class="img"
-          />
-          <div class="card-body">
-            <p class="card-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-              adipisci!
-            </p>
-          </div>
-        </div>
       </div>
-    </div>
 
     <!-- Bootstrap v5.3 -->
     <script

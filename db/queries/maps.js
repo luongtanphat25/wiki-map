@@ -6,5 +6,4 @@ const getMaps = () => {
   });
 };
 
-
 module.exports = { getMaps };

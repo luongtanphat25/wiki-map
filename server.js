@@ -66,7 +66,9 @@ app.get("/signup", (req, res) => {
 });
 
 app.get("/points/:id", (req, res) => {
-  res.render("mapView");
+  const tempVars = { id: req.params.id };
+
+  res.render("mapView", tempVars);
 });
 
 app.listen(PORT, () => {
