@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Wiki-Map Sign Up</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+
+    <!-- Bootstrap v5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+
+    <!-- Font Awesome V6 -->
+    <script src="https://kit.fontawesome.com/b516c7eb72.js" crossorigin="anonymous" ></script>
+
+    <script src="/scripts/signup.js"></script>
+    <script src="/scripts/header.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+    <form id="sign-up-form" class="position-absolute top-50 start-50 translate-middle" >
+      <div class="container p-3 border border-primary rounded bg-dark text-white" >
+        <h3>Create an account</h3>
+        <p class="text-secondary"> Create an account to create map to save your favorite places </p>
+        <div class="mb-3">
+          <label for="name" class="form-label">User name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Plase enter your username" required />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="username@gmail.com" required />
+        </div>
+
+        <div class="mb-5">
+          <label for="password" class="form-label">Password</label>
+          <input type="password"  class="form-control" id="password" name="password" required />
+        </div>
+
+        <div class="d-grid">
+          <button class="btn btn-info">Sign-in</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Bootstrap v5.3 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

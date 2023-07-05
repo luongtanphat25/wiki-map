@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Wiki-Map</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+
+    <!-- Bootstrap v5.3 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+
+    <!-- Leaflet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <!-- Font Awesome V6 -->
+    <script
+      src="https://kit.fontawesome.com/b516c7eb72.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/scripts/index.js"></script>
+    <script src="/scripts/header.js"></script>
+    <script src="/scripts/mapView.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+
+    <div class="containter row">
+      <!-- <div id="map" class="col col-sm-1 col-md-6 col-lg-8 bg-secondary" style="width: 500px; height: 100vh;"></div> -->
+
+      <div id="points" class="col col-sm-1 col-md-6 col-lg-4 p-3">
+        <h3>List of points</h3>
+        <div class="card text-bg-dark mb-3">
+          <div class="card-header">Card title</div>
+          <img
+            src="https://media.blogto.com/articles/2022329-indigo.jpg?w=2048&cmd=resize_then_crop&height=1365&quality=70"
+            class="img"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
+              adipisci!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap v5.3 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

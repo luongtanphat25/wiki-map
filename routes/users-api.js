@@ -62,7 +62,6 @@ router.post("/login", (req, res) => {
       }
 
       req.session.userID = user.id;
-      console.log("loged in, session: ", req.session.userID);
       res.send({
         user: {
           name: user.name,
@@ -71,7 +70,7 @@ router.post("/login", (req, res) => {
         },
       });
     })
-    .catch((e) => res.send(e));
+    .catch((e) => res.send({ error: e }));
 });
 
 //Log-out

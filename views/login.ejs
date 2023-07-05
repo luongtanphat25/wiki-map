@@ -27,12 +27,33 @@
       src="https://kit.fontawesome.com/b516c7eb72.js"
       crossorigin="anonymous"
     ></script>
+
+    <script src="/scripts/login.js"></script>
+    <script src="/scripts/header.js"></script>
   </head>
 
   <body>
-    <header id="page-header"></header>
+    <%- include('partials/_header') %>
 
-    <main id="main-content"></main>
+    <form id="login_form" class="position-absolute top-50 start-50 translate-middle">
+      <div class="container p-3 border border-primary rounded bg-dark text-white">
+        <h3>Log in</h3>
+        <p class="text-secondary">Welcome back, please log-in to see your favoire destinations</p>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="username@gmail.com" required />
+        </div>
+
+        <div class="mb-5">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required />
+        </div>
+
+        <div class="d-grid">
+          <button class="btn btn-info">Log-in</button>
+        </div>
+      </div>
+    </form>
 
     <!-- Bootstrap v5.3 -->
     <script
@@ -40,13 +61,5 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
-
-    <script src="/scripts/index.js"></script>
-    <script src="/scripts/views_manager.js"></script>
-
-    <script src="/scripts/components/header.js"></script>
-    <script src="/scripts/components/login_form.js"></script>
-    <script src="/scripts/components/signup_form.js"></script>
-    <script src="/scripts/components/map_listings.js"></script>
   </body>
 </html>
