@@ -28,18 +28,14 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="/scripts/index.js"></script>
+    <script src="/scripts/myMap.js"></script>
     <script src="/scripts/header.js"></script>
   </head>
 
   <body>
     <%- include('partials/_header') %>
-    <form id="create-map-form" class="m-3 row">
-      <input type="text" class="form-control col me-3" id="map-name" placeholder="Map's name">
-      <button class="btn btn-info text-white" style="width: 5em;">Add</button>
-    </form>
 
-    <div id="list_of_maps" class="containter text-center p-3"></div>
+    <div id="list_of_maps" class="containter p-3"></div>
 
     <!-- Bootstrap v5.3 -->
     <script

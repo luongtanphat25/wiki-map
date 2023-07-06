@@ -17,4 +17,25 @@ const addMap = (data) => {
     .catch((e) => console.log(e));
 };
 
-module.exports = { getMaps, addMap };
+const getMapByUserID = (id) => {
+  const queryString = `SELECT * FROM maps WHERE user_id = $1`;
+  return db
+    .query(queryString, [id])
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((e) => console.log(`Error getMapByUserID: ${e.message}`));
+};
+
+const deleteMapByMapID = (id) => {
+  const queryString = `DELETE FROM maps WHERE id = $1`;
+  return db
+    .query(queryString, [id])
+    .then((result) => {
+      console.log(result);
+      return result.rows;
+    })
+    .catch((e) => console.log(`Error deleteMapByMapID: ${e.message}`));
+};
+
+module.exports = { getMaps, addMap, getMapByUserID, deleteMapByMapID };

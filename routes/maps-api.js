@@ -15,13 +15,33 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   const data = { id: req.session.userID, name: req.body.mapName };
-  console.log(data);
   mapsDB
     .addMap(data)
     .then(() => {
       res.send({ message: "success" });
     })
     .catch((err) => console.log(err));
+});
+
+router.get("/user/:id", (req, res) => {
+  mapsDB
+    .getMapByUserID(req.session.userID)
+    .then((maps) => {
+      res.json({ maps });
+    })
+    .catch((err) => console.log(err));
+});
+
+router.delete("/:id", (req, res) => {
+  mapsDB
+    .deleteMapByMapID(req.params.id)
+    .then(() => {
+      res.send({ message: "delete successful" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ error: err.message });
+    });
 });
 
 module.exports = router;
