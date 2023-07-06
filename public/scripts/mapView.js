@@ -19,7 +19,7 @@ $(() => {
 
     for (const p of points) {
       const marker = L.marker([p.long, p.lat]).addTo(map);
-      marker.bindPopup(`<b>${p.title}</b>`).openPopup();
+      marker.bindPopup(`<b>${p.title}</b>`);
       htmlContent += `
       <div class="card text-bg-dark m-3 col">
         <div class="card-header"><h4>${p.title}</h4></div>

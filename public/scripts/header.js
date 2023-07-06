@@ -13,7 +13,7 @@ $(() => {
       $("#left-corner-navbar").append(lefContnet);
       htmlContent = `
       <div>
-        <a class="text-white p-3">Hello, ${user.name}</a>
+        <a class="text-white me-3">Hello, ${user.name}</a>
         <button class="btn btn-light" id="log-out_button">Log out</button>
       </div>
       `;

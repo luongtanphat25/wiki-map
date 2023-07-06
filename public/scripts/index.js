@@ -5,7 +5,7 @@ $(() => {
     .then((json) => {
       let list = `
         <table class="table table-striped">
-          <thead><tr><th scope="col">List of Maps</th></tr></thead>
+          <thead><tr><th scope="col"><h3>List of Maps</h3></th></tr></thead>
           <tbody>
       `;
       for (const m of json.maps) {

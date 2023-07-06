@@ -3,9 +3,9 @@ $(() => {
   $.ajax({ url: "/api/users/me" }).then((json) => {
     if (json.user) {
       currentUser = json.user;
-      $("#list_of_maps").prepend(`<form id="create-map-form" class="p-3 row">
-        <input type="text" class="form-control col me-3" id="mapName" name ="mapName" placeholder="Map's name" required>
-        <button class="btn btn-info text-white me-2" style="width: 8em;">
+      $("#list_of_maps").prepend(`<form id="create-map-form" class="row w-75 m-auto pt-3 pb-5">
+        <input type="text" class="form-control col" id="mapName" name ="mapName" placeholder="Map's name" required>
+        <button class="btn btn-info text-white ms-3" style="width: 8em;">
           <i class="fa-solid fa-plus"></i> Add map
         </button>
       </form>`);
@@ -15,11 +15,11 @@ $(() => {
       })
         .then((json) => {
           let list = `
-            <table class="table table-striped">
+            <table class="table w-75 m-auto">
               <thead>
                 <tr>
                   <th scope="col">Your map</th>
-                  <th scope="col">Delete</th>
+                  <th scope="col" class="text-end">Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -30,8 +30,8 @@ $(() => {
               <td>
                 <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/points/${m.id}">${m.name}</a>
               </td>
-              <td>
-                <button class="btn btn-outline-danger text-right" value=${m.id} id="deleteMapButton">
+              <td class="text-end">
+                <button class="btn btn-outline-danger" value=${m.id} id="deleteMapButton">
                   <i class="fa-regular fa-trash-can"></i>
                 </button>
               </td>
