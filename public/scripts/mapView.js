@@ -31,7 +31,6 @@ $(() => {
   let htmlContent = ``;
 
   let currentUser;
-
   //Add Point for authenticaed user only
   $.ajax({ url: "/api/users/me" }).then((json) => {
     if (json.user) {
@@ -71,14 +70,25 @@ $(() => {
       console.log("point: ", p.long, p.lat);
       const marker = L.marker([p.long, p.lat]).addTo(map);
       marker.bindPopup(`<b>${p.title}</b>`);
-      
-      htmlContent += `
-      <div class="card text-bg-light m-3" style="width: 25rem;">
-        <img src=${p.image} class="card-img-top"/>
-        <h5 class="card-header">${p.title}</h5>
-        <p class="card-text p-3">${p.description}</p>
-
-      </div>`;
+      if (currentUser) {
+        htmlContent += `
+        <div class="card text-bg-light m-3" style="width: 25rem;">
+          <img src=${p.image} class="card-img-top"/>
+          <h5 class="card-header">${p.title}</h5>
+          <p class="card-text p-3">${p.description}</p>
+          <div class="card-footer text-end">
+            <a href="#" class="card-link">Edit</a>
+            <a href="#" class="card-link">Delete</a>
+          </div>
+        </div>`;
+      } else {
+        htmlContent += `
+        <div class="card text-bg-light m-3" style="width: 25rem;">
+          <img src=${p.image} class="card-img-top"/>
+          <h5 class="card-header">${p.title}</h5>
+          <p class="card-text p-3">${p.description}</p>
+        </div>`;
+      }
     }
 
     $("#points").append(htmlContent);
