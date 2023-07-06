@@ -1,0 +1,68 @@
+
+home-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: 20px;
+  font-family: "Gill Sans Extrabold", sans-serif;
+  color: black
+
+}
+
+.map-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.row {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.card {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: 5px;
+  margin: 10px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.btn-primary {
+  text-align: center;
+  display: table-cell;
+}
+
+.mapbuttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.heart-container {
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  border-radius: 80px;
+}
+
+.heart-container i {
+  font-size: 1.5em;
+}
+
+.heart-container:hover i {
+  color: #f50057;
+}
+
+
+.fas {
+  color: #f50057;
+}
+
+
+
+

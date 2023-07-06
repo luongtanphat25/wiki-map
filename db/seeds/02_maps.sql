@@ -1,13 +1,17 @@
-<<<<<<< HEAD
-DROP TABLE IF EXISTS maps CASCADE;
-CREATE TABLE maps (
-  id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  favorite BOOLEAN NOT NULL DEFAULT FALSE
-);
-=======
-INSERT INTO maps(user_id, name) VALUES (1, 'Coffee Shop');
-INSERT INTO maps(user_id, name) VALUES (2, 'Bookstores');
-INSERT INTO maps(user_id, name) VALUES (3, 'Brewery');
-INSERT INTO maps(user_id, name) VALUES (4, 'Beaches');
->>>>>>> 20e1c76770a22b00214a66e06e8bc64807ba548e
+
+  INSERT INTO maps (title, description, longitude, latitude, created_on, user_id)
+  VALUES ('Map Ottawa', 'Nice Map','45.424721', '-75.695000', '2021-01-11 20:00:00', 2);
+INSERT INTO maps (title, description, longitude, latitude, created_on, user_id)
+  VALUES ('Map Toronto', 'Beautiful Map','43.651070','-79.347015', '2021-02-11 14:30:00', 1);
+INSERT INTO maps (title, description, longitude, latitude, created_on, user_id)
+  VALUES ('Map Moscow', 'Fantastic Map','55.751244', '37.618423', '2021-03-11 09:30:00', 1);
+INSERT INTO maps (title, description, longitude, latitude, created_on, user_id)
+  VALUES ('Map Casablanca', 'Cool Map','33.589886', '-7.603869', '2021-02-11 14:30:00', 4);
+INSERT INTO maps (title, description, longitude, latitude, created_on, user_id)
+  VALUES ('Map Ottawa', 'Nice Map','45.424721', '-75.695000', '2021-01-11 20:00:00', 2);
+INSERT INTO maps (title, description, longitude, latitude, created_on, user_id)
+  VALUES ('Map Toronto', 'Beautiful Map','43.651070','-79.347015', '2021-02-11 14:30:00', 1);
+INSERT INTO maps (title, description, longitude, latitude, created_on, user_id)
+  VALUES ('Map Moscow', 'Fantastic Map','55.751244', '37.618423', '2021-03-11 09:30:00', 1);
+INSERT INTO maps (title, description, longitude, latitude, created_on, user_id)
+  VALUES ('Map Casablanca', 'Cool Map','33.589886', '-7.603869', '2021-02-11 14:30:00', 4);
