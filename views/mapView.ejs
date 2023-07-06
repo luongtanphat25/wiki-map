@@ -48,14 +48,17 @@
 
   <body>
     <%- include('partials/_header') %>
-    <div id="map"
-        style="width: 100%; height: 40vh;"
-      ></div>
 
-      <h3 class="text-center mt-3">List of points</h3>
-      <div id="points" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 p-3" style="display: flex; justify-content: space-around;">
-
+    <div class="container-fluid">
+      <div class="row" style="height: 100vh;">
+        <div id="map" class="col-md-6 col-lg-8 d-flex"></div>
+        <div id="rightLayout" class="col-md-6 col-lg-4">
+          <h3 class="text-center mt-3">List of points</h3>
+          <div id="points"class="d-flex flex-wrap justify-content-around"
+          ></div>
+        </div>
       </div>
+    </div>
 
     <!-- Bootstrap v5.3 -->
     <script
