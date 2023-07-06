@@ -70,7 +70,7 @@ router.post("/login", (req, res) => {
         },
       });
     })
-    .catch((e) => res.send({ error: e }));
+    .catch((e) => res.send({ error: e.message }));
 });
 
 //Log-out
