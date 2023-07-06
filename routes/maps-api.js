@@ -13,4 +13,15 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/", (req, res) => {
+  const data = { id: req.session.userID, name: req.body.mapName };
+  console.log(data);
+  mapsDB
+    .addMap(data)
+    .then(() => {
+      res.send({ message: "success" });
+    })
+    .catch((err) => console.log(err));
+});
+
 module.exports = router;

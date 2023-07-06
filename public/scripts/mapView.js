@@ -22,7 +22,7 @@ $(() => {
       marker.bindPopup(`<b>${p.title}</b>`).openPopup();
       htmlContent += `
       <div class="card text-bg-dark m-3 col">
-        <div class="card-header">${p.title}</div>
+        <div class="card-header"><h4>${p.title}</h4></div>
         <img class="img" src=${p.image} />
         <div class="card-body">
           <p class="card-text">${p.description}</p>

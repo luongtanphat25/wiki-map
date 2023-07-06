@@ -1,5 +1,7 @@
 $(() => {
+  let currentUser;
   const updateHeader = (user) => {
+    currentUser = user;
     let htmlContent;
     if (user) {
       htmlContent = `
