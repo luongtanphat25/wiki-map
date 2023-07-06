@@ -28,36 +28,14 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="/scripts/login.js"></script>
+    <script src="/scripts/myMap.js"></script>
     <script src="/scripts/header.js"></script>
   </head>
 
   <body>
     <%- include('partials/_header') %>
 
-    <form id="login_form" class="position-absolute top-50 start-50 translate-middle">
-      <div class="container p-3 border border-primary rounded bg-dark text-white">
-        <h3>Log in</h3>
-        <p class="text-secondary">Welcome back, please log-in to see your favoire destinations</p>
-
-        <div id="errorMessage" class="p-2 mb-2 rounded text-danger border border-danger">
-        </div>
-
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="username@gmail.com" required />
-        </div>
-
-        <div class="mb-5">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" name="password" required />
-        </div>
-
-        <div class="d-grid">
-          <button class="btn btn-info">Log-in</button>
-        </div>
-      </div>
-    </form>
+    <div id="list_of_maps" class="containter py-3"></div>
 
     <!-- Bootstrap v5.3 -->
     <script

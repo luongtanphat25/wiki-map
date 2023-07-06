@@ -1,14 +1,24 @@
 $(() => {
   const updateHeader = (user) => {
+    let lefContnet = `
+      <li class="nav-item">
+          <a class="nav-link" id="favorite_map" href="/my-map">My Map</a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" id="favorite_map" href="/my-favorite">Favorite Map</a>
+      </li>
+    `;
     let htmlContent;
     if (user) {
+      $("#left-corner-navbar").append(lefContnet);
       htmlContent = `
       <div>
-        <a class="text-white p-3">Hello, ${user.name}</a>
+        <a class="text-white me-3">Hello, ${user.name}</a>
         <button class="btn btn-light" id="log-out_button">Log out</button>
       </div>
       `;
     } else {
+      $("#left-corner-navbar").remove();
       htmlContent = `
       <div>
         <a class="btn btn-secondary me-3" id="signup_button" href="/signup">
@@ -18,6 +28,7 @@ $(() => {
       </div>
       `;
     }
+
     $("right-corner-navbar").remove();
     $("#right-corner-navbar").append(htmlContent);
   };

@@ -1,3 +1,4 @@
+const { query } = require("express");
 const db = require("../connection");
 
 const getPointsByMapID = (mapID) => {
@@ -8,4 +9,25 @@ const getPointsByMapID = (mapID) => {
     });
 };
 
-module.exports = { getPointsByMapID };
+const addPoint = (data) => {
+  const values = [
+    data.map_id,
+    data.title,
+    data.description,
+    data.image,
+    data.long,
+    data.lat,
+  ];
+  return db
+    .query(
+      `INSERT INTO points(map_id, title, description, image, long, lat) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`,
+      values
+    )
+    .then((result) => {
+      console.log("point added");
+      return result.rows[0];
+    })
+    .catch((e) => console.log(e.message));
+};
+
+module.exports = { getPointsByMapID, addPoint };

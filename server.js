@@ -71,6 +71,10 @@ app.get("/points/:id", (req, res) => {
   res.render("mapView", tempVars);
 });
 
+app.get("/my-map", (req, res) => {
+  res.render("myMap");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
