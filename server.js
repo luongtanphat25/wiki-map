@@ -202,6 +202,10 @@ app.get("/points/:id", (req, res) => {
 
 
 
+app.get("/my-favorite", (req, res) => {
+  res.render("favMap");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
