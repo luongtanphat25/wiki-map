@@ -27,6 +27,12 @@ const getMapByUserID = (id) => {
     .catch((e) => console.log(`Error getMapByUserID: ${e.message}`));
 };
 
+const getUserIDByMapID = (mapID) => {
+  return db.query(`SELECT user_id FROM maps WHERE id = $1`, [mapID]).then((result) => {
+    return result.rows[0];
+  });
+};
+
 const deleteMapByMapID = (id) => {
   const queryString = `DELETE FROM maps WHERE id = $1`;
   return db
@@ -38,4 +44,4 @@ const deleteMapByMapID = (id) => {
     .catch((e) => console.log(`Error deleteMapByMapID: ${e.message}`));
 };
 
-module.exports = { getMaps, addMap, getMapByUserID, deleteMapByMapID };
+module.exports = { getMaps, addMap, getMapByUserID, deleteMapByMapID, getUserIDByMapID };
