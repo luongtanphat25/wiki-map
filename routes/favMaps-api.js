@@ -3,23 +3,23 @@ const router = express.Router();
 const favMapsDB = require("../db/queries/favMaps");
 
 router.get("/:id", (req, res) => {
-  favMapsDB
-    .getFavMapsByUserID(req.params)
-    .then((maps) => {
-      res.json({ maps });
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
+  // favMapsDB
+  //   .getFavMapsByUserID(req.params)
+  //   .then((maps) => {
+  //     res.json({ maps });
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json({ error: err.message });
+  //   });
 });
 
-router.get("/favMap/", (req, res) => {
-  console.log(req);
+router.get("/favMap/:user_id/:map_id", (req, res) => {
+  const data = { user_id: req.params.user_id, map_id: req.params.map_id };
+  console.log(data);
   favMapsDB
-    .getFavMapsByUserID(req.body)
+    .getFavMapByUserAndMap(data)
     .then((favMap) => {
-      console.log(favMap);
-      res.json(favMap);
+      res.json({favMap});
     })
     .catch((e) => console.log(e));
 });
@@ -28,16 +28,20 @@ router.post("/", (req, res) => {
   const data = req.body;
   favMapsDB
     .addFavMap(data)
-    .then(() => {})
+    .then((result) => {
+      res.send({ result });
+    })
     .catch((err) => {
       console.log(err);
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/", (req, res) => {
   favMapsDB
-    .deleteFavMap(req.params)
-    .then(() => {})
+    .deleteFavMap(req.body)
+    .then((result) => {
+      res.send({ result });
+    })
     .catch((err) => {
       console.log(err);
     });
