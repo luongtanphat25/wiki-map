@@ -44,10 +44,10 @@ router.post("/", (req, res) => {
           })
           .catch((err) => console.log(err));
       } else {
-        res.send("Email already registered.");
+        res.send({error: "Email already registered."});
       }
     })
-    .catch((e) => res.send(e));
+    .catch((e) => res.send({error: e.message}));
 });
 
 //Log-in
@@ -60,7 +60,9 @@ router.post("/login", (req, res) => {
         console.log("incorrect");
         return res.send({ error: "incorret email/password" });
       }
-
+      if (!user) {
+        return res.send({ error: "email is not registered" });
+      }
       req.session.userID = user.id;
       res.send({
         user: {
@@ -70,7 +72,7 @@ router.post("/login", (req, res) => {
         },
       });
     })
-    .catch((e) => res.send({ error: e.message }));
+    .catch((e) => res.send({ error: "User not found." }));
 });
 
 //Log-out
