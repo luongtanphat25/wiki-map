@@ -44,4 +44,9 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+router.get("/map/:id", (req, res) => {
+  mapsDB.getUserIDByMapID(req.params.id).then((data) => {
+    res.json({ data });
+  });
+});
 module.exports = router;
