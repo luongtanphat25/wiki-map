@@ -1,0 +1,25 @@
+// form
+.form-class {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  padding: 2em;
+  border: 2px solid gray;
+  margin-top: 4em;
+  // margin-left: 2em;
+}
+
+
+.form-label {
+  margin-top: 1em;
+}
+
+.map-container {
+  display: flex;
+  float: right;
+}
+
+.create-pin-maps {
+  display: flex;
+  justify-content: space-around;
+}
