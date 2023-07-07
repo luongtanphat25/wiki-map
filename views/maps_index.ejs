@@ -24,7 +24,7 @@
   <%- include('partials/_header') %>
   <main>
   <div class="home-title">
-    <h3>Available maps</h3>
+    <h3>My Maps</h3>
   </div>
 
     <div class="map-cards">
@@ -41,15 +41,34 @@
 
 
       <div class="card-body">
+        <img src="<%= maps[map].img_url %>" alt="" style="width: 16rem; height: 16rem;">
         <h5 class="card-title"><%= maps[map].title %></h5>
         <p class="card-text"><%= maps[map].description %></p>
         <div class="mapbuttons">
-
+        <form method="GET" action="/edit_map/<%= maps[map].id %>">
+          <button class="btn btn-primary" type="submit">
+            Edit
+          </button>
         </form>
-
+        <div class="heart-container">
+          <i class="far fa-heart"></i>
+        </div>
+        <script>
+          let btn = document.getElementById('btn');
+          function Toggle(){
+            if(btn.classList.contains("far")) {
+              btn.classList.remove("far");
+              btn.classList.add("fas");
+            }
+          }
+        </script>
+          <form method="POST"  action="/delete/<%= maps[map].id %>">
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </form>
 
         </div>
       </div>
+
     </div>
   </div>
   <% } %>
@@ -57,12 +76,19 @@
 </div>
 
 </main>
-
-    <div id="list_of_maps" class="containter text-center p-3"></div>
-
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi0UNccMZtRgqrzVxdyFxtulpy_amoMGY&callback=initMap">
+</script>
+<script>
+  $(document).ready(function() {
+    const map = $(".map-class")
+    map.each(function(index) {
+      const mapId = $( this ).attr("id")
+      const mapLat = $( this ).attr("data-lon")
+      const mapLon = $( this ).attr("data-lat")
+      initMap(Number(mapLat), Number(mapLon), mapID)
+    });
+   });
+    </script>
 </body>
-
-
-
-
 </html>

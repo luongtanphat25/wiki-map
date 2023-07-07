@@ -1,12 +1,12 @@
 {
-  "name": "node-skeleton",
+  "name": "skeleton",
   "version": "1.0.0",
-  "description": "",
+  "description": "LHL Node Skeleton",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "local": "./node_modules/.bin/nodemon -L --ignore public/",
+    "local": "nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.js"
   },
   "author": "Lighthouse Labs",
@@ -14,15 +14,32 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "chalk": "^2.4.2",
-    "cookie-session": "^2.0.0",
+    "cookie-session": "^1.4.0",
     "dotenv": "^2.0.0",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
+    "jquery": "^3.6.3",
     "morgan": "^1.9.1",
+    "node-sass-middleware": "^1.0.1",
     "pg": "^8.5.0",
+    "pg-native": "^3.0.0",
     "sass": "^1.35.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.10"
-  }
+  },
+  "bin": {
+    "skeleton": "bin/resetdb.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:luongtanphat25/wiki-map.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luongtanphat25/wiki-map/issues"
+  },
+  "homepage": "https://github.com/luongtanphat25/wiki-map"
 }

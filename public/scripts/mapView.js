@@ -1,8 +1,10 @@
+/* eslint-disable space-before-function-paren */
 /* eslint-disable camelcase */
 /* eslint-disable no-undef */
 /* eslint-disable no-var */
 $(() => {
   // MAP's set up
+  $("#heart").hide();
   let map = L.map("map").setView([43.6532, -79.3832], 12);
   let layerGroup = L.layerGroup().addTo(map);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -16,7 +18,7 @@ $(() => {
 
   //add point form
   const addPointForm = `
-    <form id="addPointForm" class="m-auto border border-dark p-3 rounded" style="width: 25rem;">
+    <form id="addPointForm" class="rounded bg-light text-white m-auto p-3" style="width: 25rem;">
       <h5>Add new point</h5>
         <input type="hidden" name="map_id" value=${map_id} />
         <input type="text" class="form-control mb-3" placeholder="Point's title" name="title" required>
@@ -25,7 +27,8 @@ $(() => {
         <input type="hidden" id="longPoint" name="long"/>
         <input type="hidden" id="latPoint" name="lat"/>
         <div class="d-grid">
-          <button id="addPointFormSubmit" class="btn btn-outline-dark">Add point</button>
+          <button id="addPointFormSubmit" class="btn btn-outline-info mb-3">Add point</button>
+          <button id="cancelButton" type="button" class="btn btn-outline-danger">Cancel</button>
         </div>
     </form>
   `;
@@ -34,8 +37,69 @@ $(() => {
     let isAuthenticaed = false;
     if (json.user) {
       const currentUser = json.user;
+
+      //Set color for fav button
+
+      //Show fav button
+      $("#heart").show();
+      $.ajax({ url: `/api/fav/favMap/${currentUser.id}/${map_id}` }).then(
+        (json) => {
+          console.log(json);
+          if (json.favMap.length > 0) {
+            $("#heart").css("color", "red");
+          } else {
+            $("#heart").css("color", "grey");
+          }
+        }
+      );
+
+      //Fav button clicked
+      $("#heart").on("click", function (event) {
+        event.preventDefault();
+
+        $.ajax({
+          url: `/api/fav/favMap/${currentUser.id}/${map_id}`,
+        })
+          .then((json) => {
+            if (json.favMap.length > 0) {
+              //delete fav
+              $.ajax({
+                method: "DELETE",
+                url: `/api/fav/`,
+                data: { user_id: currentUser.id, map_id: parseInt(map_id) },
+              })
+                .then((json) => {
+                  console.log("json");
+                  $("#heart").css("color", "grey");
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            } else {
+              //add fav
+              $.ajax({
+                method: "POST",
+                url: `/api/fav/`,
+                data: { user_id: currentUser.id, map_id: parseInt(map_id) },
+              })
+                .then((json) => {
+                  console.log("json");
+                  $("#heart").css("color", "red");
+                  // location.reload();
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      });
+
       $.ajax({ url: `/api/maps/map/${map_id}` }).then((json) => {
         isAuthenticaed = currentUser.id === json.data.user_id;
+
         if (isAuthenticaed) {
           $("#addPoint").append(addPointForm);
           $("#addPointForm").hide();
@@ -61,6 +125,11 @@ $(() => {
                 location.reload();
               }
             );
+          });
+
+          $("#cancelButton").on("click", () => {
+            $("#addPointForm").hide();
+            layerGroup.clearLayers();
           });
         }
       });
