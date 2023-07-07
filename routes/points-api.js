@@ -32,6 +32,17 @@ router.post("/", (req, res) => {
     .catch((e) => console.log(e));
 });
 
+router.post("/:id", (req, res) => {
+  const { id, title, description, image, long, lat } = req.body;
+  const data = { title, description, image, long, lat, id };
+  pointsDB
+    .updatePointByID(data)
+    .then(() => {
+      res.send({ message: "updated" });
+    })
+    .catch((e) => console.log(e));
+});
+
 router.delete("/:id", (req, res) => {
   pointsDB
     .deletePointByMapID(req.params.id)
