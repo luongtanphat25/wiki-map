@@ -16,10 +16,11 @@ $(() => {
         if (isAuthenticaed) {
           const editPointForm = `
             <form id="editPointForm" class="m-auto p-3 rounded bg-dark text-white" style="width: 25rem;">
-              <input type="hidden" name="map_id" value=${point.map_id} focus/>
+              <input type="hidden" name="id" value=${point.id} />
+              <input type="hidden" name="map_id" value=${point.map_id} />
 
               <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control mb-3" placeholder="Point's title" name="title" id="title" value=${point.title} required>
+              <input type="text" class="form-control mb-3" placeholder="Point's title" name="title" id="title" value=${point.title} required focus>
 
               <label for="description" class="form-label">Description</label>
               <textarea class="form-control mb-3" value=${point.description} name="description" placeholder="Description" id="description" required></textarea>
@@ -56,9 +57,14 @@ $(() => {
           $("#editPointForm").on("submit", function (event) {
             event.preventDefault();
             const data = $(this).serialize();
+            console.log(data);
             //Call ajax update point
-            $.ajax({ method: "POST", url: `/api/points/${point.id}`, data }).then((json) => {
-              console.log(json);
+            $.ajax({
+              method: "POST",
+              url: `/api/points/${point.id}`,
+              data,
+            }).then((json) => {
+              window.location.href = `/points/${point.map_id}`;
             });
           });
         } else {
