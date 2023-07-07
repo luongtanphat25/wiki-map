@@ -9,10 +9,7 @@ $(() => {
       url: "/api/users/",
       data,
     }).then((json) => {
-      if (json.error) {
-        $("#errorMessage").empty().append(`${json.error}`).show();
-        return;
-      }
+      console.log("after sign-up: ", json);
       window.location.href = "/";
     });
   });
