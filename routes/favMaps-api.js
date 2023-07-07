@@ -14,13 +14,13 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get("/favMap/", (req, res) => {
+router.get("/favMap/:user_id/:map_id", (req, res) => {
   const data = { user_id: req.params.user_id, map_id: req.params.map_id };
+  console.log(data);
   favMapsDB
     .getFavMapByUserAndMap(data)
     .then((favMap) => {
-      console.log(favMap);
-      res.json({ favMap });
+      res.json({favMap});
     })
     .catch((e) => console.log(e));
 });

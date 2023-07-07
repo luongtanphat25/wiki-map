@@ -41,7 +41,7 @@ $(() => {
       $("#heart").show();
       $.ajax({ url: `/api/fav/favMap/${currentUser.id}/${map_id}` }).then(
         (json) => {
-          console.log(json);
+          // console.log(json);
           if (json.favMap.length > 0) {
             $("#heart").css("color", "red");
           } else {
@@ -52,6 +52,7 @@ $(() => {
 
       $("#heart").on("click", function (event) {
         event.preventDefault();
+
         $.ajax({
           url: `/api/fav/favMap/${currentUser.id}/${map_id}`,
         })
