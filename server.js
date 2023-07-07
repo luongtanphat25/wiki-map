@@ -41,12 +41,14 @@ app.use(
 const userApiRoutes = require("./routes/users-api");
 const mapApiROutes = require("./routes/maps-api");
 const pointApiRoutes = require("./routes/points-api");
+const favApiRoutes = require("./routes/favMaps-api");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", userApiRoutes);
 app.use("/api/maps", mapApiROutes);
 app.use("/api/points", pointApiRoutes);
+app.use("/api/fav", favApiRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page

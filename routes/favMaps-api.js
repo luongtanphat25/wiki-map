@@ -13,6 +13,17 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/favMap/", (req, res) => {
+  console.log(req);
+  favMapsDB
+    .getFavMapsByUserID(req.body)
+    .then((favMap) => {
+      console.log(favMap);
+      res.json(favMap);
+    })
+    .catch((e) => console.log(e));
+});
+
 router.post("/", (req, res) => {
   const data = req.body;
   favMapsDB

@@ -31,5 +31,6 @@ const deleteFavMap = (data) => {
       return result.rows[0];
     })
     .catch((e) => console.log(e));
-}
-module.exports = { getFavMapsByUserID , addFavMap , deleteFavMap};
+};
+
+module.exports = { getFavMapsByUserID, addFavMap, deleteFavMap };

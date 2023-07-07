@@ -17,6 +17,17 @@ const addMap = (data) => {
     .catch((e) => console.log(e));
 };
 
+const getMapByUserIDAndMapID = (data) => {
+  const queryString = `SELECT * FROM maps WHERE user_id = $1 AND map_id = $2`;
+  return db
+    .query(queryString, [data.user_id, data.map_id])
+    .then((result) => {
+      console.log(result);
+      return result.rows[0];
+    })
+    .catch((e) => console.log(`Error getMapByUserID: ${e.message}`));
+};
+
 const getMapByUserID = (id) => {
   const queryString = `SELECT * FROM maps WHERE user_id = $1`;
   return db
@@ -28,9 +39,11 @@ const getMapByUserID = (id) => {
 };
 
 const getUserIDByMapID = (mapID) => {
-  return db.query(`SELECT user_id FROM maps WHERE id = $1`, [mapID]).then((result) => {
-    return result.rows[0];
-  });
+  return db
+    .query(`SELECT user_id FROM maps WHERE id = $1`, [mapID])
+    .then((result) => {
+      return result.rows[0];
+    });
 };
 
 const deleteMapByMapID = (id) => {
@@ -44,4 +57,11 @@ const deleteMapByMapID = (id) => {
     .catch((e) => console.log(`Error deleteMapByMapID: ${e.message}`));
 };
 
-module.exports = { getMaps, addMap, getMapByUserID, deleteMapByMapID, getUserIDByMapID };
+module.exports = {
+  getMaps,
+  addMap,
+  getMapByUserID,
+  deleteMapByMapID,
+  getUserIDByMapID,
+  getMapByUserIDAndMapID,
+};

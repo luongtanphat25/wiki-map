@@ -4,6 +4,7 @@
 /* eslint-disable no-var */
 $(() => {
   // MAP's set up
+  $("#heart").hide();
   let map = L.map("map").setView([43.6532, -79.3832], 12);
   let layerGroup = L.layerGroup().addTo(map);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -35,8 +36,23 @@ $(() => {
     let isAuthenticaed = false;
     if (json.user) {
       const currentUser = json.user;
+
+      $("#heart").show();
+      $("#heart").css("color", "grey");
+      $("#heart").on("click", function (event) {
+        event.preventDefault();
+        console.log($("#heart").css("color"));
+        if ($("#heart").css("color") === `rgb(255, 0, 0)`) {
+          $("#heart").css("color", "grey");
+        } else {
+          $("#heart").css("color", "red");
+        }
+        console.log("fav");
+      });
+
       $.ajax({ url: `/api/maps/map/${map_id}` }).then((json) => {
         isAuthenticaed = currentUser.id === json.data.user_id;
+
         if (isAuthenticaed) {
           $("#addPoint").append(addPointForm);
           $("#addPointForm").hide();
