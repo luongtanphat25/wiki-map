@@ -18,7 +18,7 @@ $(() => {
 
   //add point form
   const addPointForm = `
-    <form id="addPointForm" class="m-auto border border-dark p-3 rounded" style="width: 25rem;">
+    <form id="addPointForm" class="rounded bg-light text-white m-auto p-3" style="width: 25rem;">
       <h5>Add new point</h5>
         <input type="hidden" name="map_id" value=${map_id} />
         <input type="text" class="form-control mb-3" placeholder="Point's title" name="title" required>
@@ -27,7 +27,8 @@ $(() => {
         <input type="hidden" id="longPoint" name="long"/>
         <input type="hidden" id="latPoint" name="lat"/>
         <div class="d-grid">
-          <button id="addPointFormSubmit" class="btn btn-outline-dark">Add point</button>
+          <button id="addPointFormSubmit" class="btn btn-outline-info mb-3">Add point</button>
+          <button id="cancelButton" type="button" class="btn btn-outline-danger">Cancel</button>
         </div>
     </form>
   `;
@@ -124,6 +125,11 @@ $(() => {
                 location.reload();
               }
             );
+          });
+
+          $("#cancelButton").on("click", () => {
+            $("#addPointForm").hide();
+            layerGroup.clearLayers();
           });
         }
       });
