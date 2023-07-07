@@ -10,8 +10,7 @@ $(() => {
       data,
     }).then((json) => {
       if (json.error) {
-        $("#errorMessage").empty().append(`${json.error}`).show();
-        return;
+        return $("#errorMessage").empty().append(`${json.error}`).show();
       }
       window.location.href = "/";
     });

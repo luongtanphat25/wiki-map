@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const express = require("express");
 const router = express.Router();
 const favMapsDB = require("../db/queries/favMaps");

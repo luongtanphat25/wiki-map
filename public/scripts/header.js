@@ -5,7 +5,7 @@ $(() => {
           <a class="nav-link" id="favorite_map" href="/my-map">My Map</a>
         </li>
       <li class="nav-item">
-        <a class="nav-link" id="favorite_map" href="/my-favorite">Favorite Map</a>
+      <a class="nav-link" id="favorite_map" href="/my-favorite">Favorite Map</a>
       </li>
     `;
     let htmlContent;

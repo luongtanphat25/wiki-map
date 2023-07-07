@@ -38,13 +38,10 @@ $(() => {
     if (json.user) {
       const currentUser = json.user;
 
-      //Set color for fav button
-
-      //Show fav button
       $("#heart").show();
       $.ajax({ url: `/api/fav/favMap/${currentUser.id}/${map_id}` }).then(
         (json) => {
-          console.log(json);
+          // console.log(json);
           if (json.favMap.length > 0) {
             $("#heart").css("color", "red");
           } else {
@@ -53,7 +50,6 @@ $(() => {
         }
       );
 
-      //Fav button clicked
       $("#heart").on("click", function (event) {
         event.preventDefault();
 
