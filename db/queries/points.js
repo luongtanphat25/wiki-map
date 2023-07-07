@@ -41,4 +41,12 @@ const deletePointByMapID = (id) => {
     .catch((e) => console.log(`Error deletePointByMapID: ${e.message}`));
 };
 
-module.exports = { getPointsByMapID, addPoint, deletePointByMapID };
+const getPointByID = (id) => {
+  return db
+    .query("SELECT * FROM points WHERE id = $1;", [id])
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { getPointsByMapID, addPoint, deletePointByMapID, getPointByID };

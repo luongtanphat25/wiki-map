@@ -4,7 +4,6 @@ const router = express.Router();
 const pointsDB = require("../db/queries/points");
 
 router.get("/:id", (req, res) => {
-  console.log(req.params.id);
   pointsDB
     .getPointsByMapID(req.params.id)
     .then((points) => {
@@ -13,6 +12,12 @@ router.get("/:id", (req, res) => {
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
+});
+
+router.get("/point/:id", (req, res) => {
+  pointsDB.getPointByID(req.params.id).then((point) => {
+    res.json({ point });
+  });
 });
 
 router.post("/", (req, res) => {

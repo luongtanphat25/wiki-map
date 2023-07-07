@@ -30,26 +30,42 @@ $(() => {
     </form>
   `;
 
-  const url = `/api${window.location.pathname}`;
-  let htmlContent = ``;
-  let isAuthenticaed = false;
+  const editPointForm = `
+    <form id="editPointForm" class="m-auto border border-dark p-3 rounded" style="width: 25rem;">
+      <h5>Edit point</h5>
+        <input type="hidden" name="map_id" value=${map_id} />
+        <input type="text" class="form-control mb-3" placeholder="Point's title" name="title" required>
+        <textarea class="form-control mb-3" name="description" placeholder="Description" required></textarea>
+        <input type="text" class="form-control mb-3" placeholder="Image's url" name="image" required>
+        <input type="hidden" id="longPoint" name="long"/>
+        <input type="hidden" id="latPoint" name="lat"/>
+        <div class="d-grid">
+          <button id="addPointFormSubmit" class="btn btn-outline-dark">Save</button>
+        </div>
+    </form>
+  `;
 
-  let currentUser;
   //Add Point for authenticaed user only
   $.ajax({ url: "/api/users/me" }).then((json) => {
+    let isAuthenticaed = false;
     if (json.user) {
-      currentUser = json.user;
+      const currentUser = json.user;
       $.ajax({ url: `/api/maps/map/${map_id}` }).then((json) => {
         isAuthenticaed = currentUser.id === json.data.user_id;
-        console.log("inside: ",isAuthenticaed);
         if (isAuthenticaed) {
           $("#addPoint").append(addPointForm);
           $("#addPointForm").hide();
 
+          $("#addPoint").append(editPointForm);
+          $("#editPointForm").hide();
+
           //click on map to show add point form
           map.on("click", (e) => {
             layerGroup.clearLayers();
+            $("#editPointForm").hide();
             $("#addPointForm").show();
+            const title = $("#editPointForm").is(":hidden") ? "Edit" : "Cancel";
+            $("#editPointButton").html(title);
             L.marker(e.latlng).addTo(layerGroup);
             $("#latPoint").val(Math.round(e.latlng.lng * 10000) / 10000);
             $("#longPoint").val(Math.round(e.latlng.lat * 10000) / 10000);
@@ -70,9 +86,9 @@ $(() => {
       });
     }
 
-    $.ajax({ url: url }).then((json) => {
+    $.ajax({ url: `/api${window.location.pathname}` }).then((json) => {
       const points = json.points;
-
+      let htmlContent = ``;
       //set map display
       if (points[0]) {
         map.setView([points[0].long, points[0].lat], 12);
@@ -83,7 +99,6 @@ $(() => {
         marker.bindPopup(`<b>${p.title}</b>`);
 
         //display edit delete button for authenticated user;
-        console.log("outside: ",isAuthenticaed);
         if (isAuthenticaed) {
           htmlContent += `
           <div class="card text-bg-light m-3" style="width: 25rem;">
@@ -91,7 +106,7 @@ $(() => {
             <h5 class="card-header">${p.title}</h5>
             <p class="card-text p-3">${p.description}</p>
             <div id="delete-edit-form" class="card-footer text-end">
-              <button id="" class="btn btn-outline-primary me-2">Edit</button>
+              <button id="editPointButton" class="btn btn-outline-primary me-2" value=${p.id}>Edit</button>
               <button id="deletePointButton" class="btn btn-outline-danger" value=${p.id}>Delete</a>
             </div>
           </div>`;
@@ -108,16 +123,30 @@ $(() => {
       //add point to page
       $("#points").append(htmlContent);
 
-      $("#delete-edit-form").on("click", "#deletePointButton", function (event) {
+      $("#delete-edit-form").on(
+        "click",
+        "#deletePointButton",
+        function (event) {
+          event.preventDefault();
+          const data = $(this).val();
+          $.ajax({ method: "DELETE", url: `/api/points/${data}` }).then(() => {
+            location.reload();
+          });
+        }
+      );
+
+      $("#delete-edit-form").on("click", "#editPointButton", function (event) {
         event.preventDefault();
+        $("#addPointForm").hide();
+        layerGroup.clearLayers();
+        $("#editPointForm").toggle();
+        const title = $("#editPointForm").is(":hidden") ? "Edit" : "Cancel";
+        $("#editPointButton").html(title);
         const data = $(this).val();
-        $.ajax({ method: "DELETE", url: `/api/points/${data}` }).then(() => {
-          location.reload();
+        $.ajax({ url: `/api/points/point/${data}` }).then((json) => {
+          console.log(json);
         });
       });
     });
   });
-
-  //Get all points of this map
-
 });
