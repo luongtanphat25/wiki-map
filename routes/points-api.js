@@ -27,4 +27,16 @@ router.post("/", (req, res) => {
     .catch((e) => console.log(e));
 });
 
+router.delete("/:id", (req, res) => {
+  pointsDB
+    .deletePointByMapID(req.params.id)
+    .then(() => {
+      res.send({ message: "delete successful" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ error: err.message });
+    });
+});
+
 module.exports = router;

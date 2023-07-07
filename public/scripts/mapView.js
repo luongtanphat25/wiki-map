@@ -10,8 +10,11 @@ $(() => {
     attribution:
       '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
+
+  //map_id
   const map_id = window.location.pathname.split("/").slice(-1)[0];
 
+  //add point form
   const addPointForm = `
     <form id="addPointForm" class="m-auto border border-dark p-3 rounded" style="width: 25rem;">
       <h5>Add new point</h5>
@@ -31,7 +34,6 @@ $(() => {
   let htmlContent = ``;
 
   let currentUser;
-
   //Add Point for authenticaed user only
   $.ajax({ url: "/api/users/me" }).then((json) => {
     if (json.user) {
@@ -39,6 +41,7 @@ $(() => {
       $("#addPoint").append(addPointForm);
       $("#addPointForm").hide();
 
+      //click on map to show add point form
       map.on("click", (e) => {
         layerGroup.clearLayers();
         $("#addPointForm").show();
@@ -47,6 +50,7 @@ $(() => {
         $("#longPoint").val(Math.round(e.latlng.lat * 10000) / 10000);
       });
 
+      //add point clicked
       $("#addPointForm").on("submit", function (event) {
         event.preventDefault();
         const data = $(this).serialize();
@@ -63,24 +67,46 @@ $(() => {
   $.ajax({ url: url }).then((json) => {
     const points = json.points;
 
+    //set map display
     if (points[0]) {
       map.setView([points[0].long, points[0].lat], 12);
     }
-
+    //display marker for each point
     for (const p of points) {
-      console.log("point: ", p.long, p.lat);
       const marker = L.marker([p.long, p.lat]).addTo(map);
       marker.bindPopup(`<b>${p.title}</b>`);
-      
-      htmlContent += `
-      <div class="card text-bg-light m-3" style="width: 25rem;">
-        <img src=${p.image} class="card-img-top"/>
-        <h5 class="card-header">${p.title}</h5>
-        <p class="card-text p-3">${p.description}</p>
 
-      </div>`;
+      //display edit delete button for authenticated user;
+      if (currentUser) {
+        htmlContent += `
+        <div class="card text-bg-light m-3" style="width: 25rem;">
+          <img src=${p.image} class="card-img-top"/>
+          <h5 class="card-header">${p.title}</h5>
+          <p class="card-text p-3">${p.description}</p>
+          <div id="delete-edit-form" class="card-footer text-end">
+            <button id="" class="btn btn-outline-primary me-2">Edit</button>
+            <button id="deletePointButton" class="btn btn-outline-danger" value=${p.id}>Delete</a>
+          </div>
+        </div>`;
+      } else {
+        htmlContent += `
+        <div class="card text-bg-light m-3" style="width: 25rem;">
+          <img src=${p.image} class="card-img-top"/>
+          <h5 class="card-header">${p.title}</h5>
+          <p class="card-text p-3">${p.description}</p>
+        </div>`;
+      }
     }
 
+    //add point to page
     $("#points").append(htmlContent);
+
+    $("#delete-edit-form").on("click", "#deletePointButton", function (event) {
+      event.preventDefault();
+      const data = $(this).val();
+      $.ajax({ method: "DELETE", url: `/api/points/${data}` }).then(() => {
+        location.reload();
+      });
+    });
   });
 });
