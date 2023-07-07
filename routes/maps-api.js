@@ -49,4 +49,5 @@ router.get("/map/:id", (req, res) => {
     res.json({ data });
   });
 });
+
 module.exports = router;

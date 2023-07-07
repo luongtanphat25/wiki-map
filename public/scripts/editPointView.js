@@ -63,7 +63,7 @@ $(() => {
               method: "POST",
               url: `/api/points/${point.id}`,
               data,
-            }).then((json) => {
+            }).then(() => {
               window.location.href = `/points/${point.map_id}`;
             });
           });

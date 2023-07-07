@@ -1,4 +1,3 @@
-const { query } = require("express");
 const db = require("../connection");
 
 const getPointsByMapID = (mapID) => {
@@ -42,11 +41,9 @@ const deletePointByMapID = (id) => {
 };
 
 const getPointByID = (id) => {
-  return db
-    .query("SELECT * FROM points WHERE id = $1;", [id])
-    .then((data) => {
-      return data.rows[0];
-    });
+  return db.query("SELECT * FROM points WHERE id = $1;", [id]).then((data) => {
+    return data.rows[0];
+  });
 };
 
 const updatePointByID = (data) => {
@@ -56,7 +53,7 @@ const updatePointByID = (data) => {
     data.image,
     data.long,
     data.lat,
-    data.id
+    data.id,
   ];
   return db
     .query(
@@ -68,6 +65,12 @@ const updatePointByID = (data) => {
       return result.rows[0];
     })
     .catch((e) => console.log(e.message));
-}
+};
 
-module.exports = { getPointsByMapID, addPoint, deletePointByMapID, getPointByID, updatePointByID };
+module.exports = {
+  getPointsByMapID,
+  addPoint,
+  deletePointByMapID,
+  getPointByID,
+  updatePointByID,
+};

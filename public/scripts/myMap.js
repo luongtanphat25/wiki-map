@@ -1,8 +1,7 @@
+/* eslint-disable space-before-function-paren */
 $(() => {
-  let currentUser;
   $.ajax({ url: "/api/users/me" }).then((json) => {
     if (json.user) {
-      currentUser = json.user;
       $("#list_of_maps").prepend(`<form id="create-map-form" class="row w-75 m-auto pt-3 pb-5">
         <input type="text" class="form-control col" id="mapName" name ="mapName" placeholder="Map's name" required>
         <button class="btn btn-info text-white ms-3" style="width: 8em;">
