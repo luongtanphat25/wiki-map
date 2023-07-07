@@ -4,7 +4,7 @@ const favMapsDB = require("../db/queries/favMaps");
 
 router.get("/:id", (req, res) => {
   favMapsDB
-    .getFavMapsByUserID(req.params.id)
+    .getFavMapsByUserID(req.params)
     .then((maps) => {
       res.json({ maps });
     })
@@ -13,13 +13,13 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get("/favMap/:user_id/:map_id", (req, res) => {
-  const data = { user_id: req.params.user_id, map_id: req.params.map_id };
-  console.log(data);
+router.get("/favMap/", (req, res) => {
+  console.log(req);
   favMapsDB
-    .getFavMapByUserAndMap(data)
+    .getFavMapsByUserID(req.body)
     .then((favMap) => {
-      res.json({favMap});
+      console.log(favMap);
+      res.json(favMap);
     })
     .catch((e) => console.log(e));
 });
@@ -28,20 +28,16 @@ router.post("/", (req, res) => {
   const data = req.body;
   favMapsDB
     .addFavMap(data)
-    .then((result) => {
-      res.send({ result });
-    })
+    .then(() => {})
     .catch((err) => {
       console.log(err);
     });
 });
 
-router.delete("/", (req, res) => {
+router.delete("/:id", (req, res) => {
   favMapsDB
-    .deleteFavMap(req.body)
-    .then((result) => {
-      res.send({ result });
-    })
+    .deleteFavMap(req.params)
+    .then(() => {})
     .catch((err) => {
       console.log(err);
     });

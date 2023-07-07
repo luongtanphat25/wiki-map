@@ -23,8 +23,8 @@ const addFavMap = (data) => {
 };
 
 const deleteFavMap = (data) => {
-  const queryString = `DELETE FROM FavoriteMapping WHERE user_id = $1 AND map_id = $2;`;
-  const values = [data.user_id, data.map_id];
+  const queryString = `DELETE FROM FavoriteMapping WHERE user_id = $1;`;
+  const values = [data.user_id];
   return db
     .query(queryString, values)
     .then((result) => {
@@ -33,18 +33,4 @@ const deleteFavMap = (data) => {
     .catch((e) => console.log(e));
 };
 
-const getFavMapByUserAndMap = (data) => {
-  const quey = `SELECT *
-  FROM FavoriteMapping
-  WHERE user_id= $1 AND map_id = $2;`;
-  return db.query(quey, [data.user_id, data.map_id]).then((result) => {
-    return result.rows;
-  });
-};
-
-module.exports = {
-  getFavMapsByUserID,
-  addFavMap,
-  deleteFavMap,
-  getFavMapByUserAndMap,
-};
+module.exports = { getFavMapsByUserID, addFavMap, deleteFavMap };
