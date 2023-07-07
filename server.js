@@ -66,13 +66,15 @@ app.get("/signup", (req, res) => {
 });
 
 app.get("/points/:id", (req, res) => {
-  const tempVars = { id: req.params.id };
-
-  res.render("mapView", tempVars);
+  res.render("mapView", { id: req.params.id });
 });
 
 app.get("/my-map", (req, res) => {
   res.render("myMap");
+});
+
+app.get("/edit/point/:id", (req, res) => {
+  res.render("editPointView", { id: req.params.id });
 });
 
 app.listen(PORT, () => {

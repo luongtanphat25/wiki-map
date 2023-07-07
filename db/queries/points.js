@@ -41,4 +41,33 @@ const deletePointByMapID = (id) => {
     .catch((e) => console.log(`Error deletePointByMapID: ${e.message}`));
 };
 
-module.exports = { getPointsByMapID, addPoint, deletePointByMapID };
+const getPointByID = (id) => {
+  return db
+    .query("SELECT * FROM points WHERE id = $1;", [id])
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+
+const updatePointByID = (data) => {
+  const values = [
+    data.title,
+    data.description,
+    data.image,
+    data.long,
+    data.lat,
+    data.id
+  ];
+  return db
+    .query(
+      `UPDATE points SET title = $1, description = $2, image = $3, long = $4, lat = $5 WHERE id = $6;`,
+      values
+    )
+    .then((result) => {
+      console.log("point updated result: ", result);
+      return result.rows[0];
+    })
+    .catch((e) => console.log(e.message));
+}
+
+module.exports = { getPointsByMapID, addPoint, deletePointByMapID, getPointByID, updatePointByID };

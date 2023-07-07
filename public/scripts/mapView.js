@@ -29,19 +29,13 @@ $(() => {
         </div>
     </form>
   `;
-
-  const url = `/api${window.location.pathname}`;
-  let htmlContent = ``;
-  let isAuthenticaed = false;
-
-  let currentUser;
   //Add Point for authenticaed user only
   $.ajax({ url: "/api/users/me" }).then((json) => {
+    let isAuthenticaed = false;
     if (json.user) {
-      currentUser = json.user;
+      const currentUser = json.user;
       $.ajax({ url: `/api/maps/map/${map_id}` }).then((json) => {
         isAuthenticaed = currentUser.id === json.data.user_id;
-        console.log("inside: ",isAuthenticaed);
         if (isAuthenticaed) {
           $("#addPoint").append(addPointForm);
           $("#addPointForm").hide();
@@ -49,7 +43,9 @@ $(() => {
           //click on map to show add point form
           map.on("click", (e) => {
             layerGroup.clearLayers();
+            $("#editPointForm").hide();
             $("#addPointForm").show();
+
             L.marker(e.latlng).addTo(layerGroup);
             $("#latPoint").val(Math.round(e.latlng.lng * 10000) / 10000);
             $("#longPoint").val(Math.round(e.latlng.lat * 10000) / 10000);
@@ -70,9 +66,9 @@ $(() => {
       });
     }
 
-    $.ajax({ url: url }).then((json) => {
+    $.ajax({ url: `/api${window.location.pathname}` }).then((json) => {
       const points = json.points;
-
+      let htmlContent = ``;
       //set map display
       if (points[0]) {
         map.setView([points[0].long, points[0].lat], 12);
@@ -83,7 +79,6 @@ $(() => {
         marker.bindPopup(`<b>${p.title}</b>`);
 
         //display edit delete button for authenticated user;
-        console.log("outside: ",isAuthenticaed);
         if (isAuthenticaed) {
           htmlContent += `
           <div class="card text-bg-light m-3" style="width: 25rem;">
@@ -91,8 +86,9 @@ $(() => {
             <h5 class="card-header">${p.title}</h5>
             <p class="card-text p-3">${p.description}</p>
             <div id="delete-edit-form" class="card-footer text-end">
-              <button id="" class="btn btn-outline-primary me-2">Edit</button>
-              <button id="deletePointButton" class="btn btn-outline-danger" value=${p.id}>Delete</a>
+              <a id="editPointButton" class="btn btn-outline-primary me-2" href="/edit/point/${p.id}">Edit</a>
+
+              <button id="deletePointButton" class="btn btn-outline-danger" value=${p.id}>Delete</button>
             </div>
           </div>`;
         } else {
@@ -108,16 +104,17 @@ $(() => {
       //add point to page
       $("#points").append(htmlContent);
 
-      $("#delete-edit-form").on("click", "#deletePointButton", function (event) {
-        event.preventDefault();
-        const data = $(this).val();
-        $.ajax({ method: "DELETE", url: `/api/points/${data}` }).then(() => {
-          location.reload();
-        });
-      });
+      $("#delete-edit-form").on(
+        "click",
+        "#deletePointButton",
+        function (event) {
+          event.preventDefault();
+          const data = $(this).val();
+          $.ajax({ method: "DELETE", url: `/api/points/${data}` }).then(() => {
+            location.reload();
+          });
+        }
+      );
     });
   });
-
-  //Get all points of this map
-
 });

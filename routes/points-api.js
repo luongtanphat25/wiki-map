@@ -4,7 +4,6 @@ const router = express.Router();
 const pointsDB = require("../db/queries/points");
 
 router.get("/:id", (req, res) => {
-  console.log(req.params.id);
   pointsDB
     .getPointsByMapID(req.params.id)
     .then((points) => {
@@ -15,6 +14,12 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/point/:id", (req, res) => {
+  pointsDB.getPointByID(req.params.id).then((point) => {
+    res.json({ point });
+  });
+});
+
 router.post("/", (req, res) => {
   const { map_id, title, description, image, long, lat } = req.body;
   const data = { map_id, title, description, image, long, lat };
@@ -23,6 +28,17 @@ router.post("/", (req, res) => {
     .addPoint(data)
     .then(() => {
       res.send({ message: "point added successfully" });
+    })
+    .catch((e) => console.log(e));
+});
+
+router.post("/:id", (req, res) => {
+  const { id, title, description, image, long, lat } = req.body;
+  const data = { title, description, image, long, lat, id };
+  pointsDB
+    .updatePointByID(data)
+    .then(() => {
+      res.send({ message: "updated" });
     })
     .catch((e) => console.log(e));
 });
