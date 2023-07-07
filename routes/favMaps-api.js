@@ -1,10 +1,11 @@
+/* eslint-disable camelcase */
 const express = require("express");
 const router = express.Router();
 const favMapsDB = require("../db/queries/favMaps");
 
 router.get("/:id", (req, res) => {
   favMapsDB
-    .getFavMapsByUserID(req.params)
+    .getFavMapsByUserID(req.params.id)
     .then((maps) => {
       res.json({ maps });
     })
@@ -14,12 +15,12 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/favMap/", (req, res) => {
-  console.log(req);
+  const data = { user_id: req.params.user_id, map_id: req.params.map_id };
   favMapsDB
-    .getFavMapsByUserID(req.body)
+    .getFavMapByUserAndMap(data)
     .then((favMap) => {
       console.log(favMap);
-      res.json(favMap);
+      res.json({ favMap });
     })
     .catch((e) => console.log(e));
 });
@@ -28,16 +29,20 @@ router.post("/", (req, res) => {
   const data = req.body;
   favMapsDB
     .addFavMap(data)
-    .then(() => {})
+    .then((result) => {
+      res.send({ result });
+    })
     .catch((err) => {
       console.log(err);
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/", (req, res) => {
   favMapsDB
-    .deleteFavMap(req.params)
-    .then(() => {})
+    .deleteFavMap(req.body)
+    .then((result) => {
+      res.send({ result });
+    })
     .catch((err) => {
       console.log(err);
     });

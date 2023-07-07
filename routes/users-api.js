@@ -44,7 +44,7 @@ router.post("/", (req, res) => {
           })
           .catch((err) => console.log(err));
       } else {
-        res.send("Email already registered.");
+        res.send({ error: "Email already registered." });
       }
     })
     .catch((e) => res.send(e));
@@ -70,7 +70,7 @@ router.post("/login", (req, res) => {
         },
       });
     })
-    .catch((e) => res.send({ error: e.message }));
+    .catch((e) => res.send({ error: "incorret email/password" }));
 });
 
 //Log-out

@@ -39,16 +39,57 @@ $(() => {
       const currentUser = json.user;
 
       $("#heart").show();
-      $("#heart").css("color", "grey");
+      $.ajax({ url: `/api/fav/favMap/${currentUser.id}/${map_id}` }).then(
+        (json) => {
+          console.log(json);
+          if (json.favMap.length > 0) {
+            $("#heart").css("color", "red");
+          } else {
+            $("#heart").css("color", "grey");
+          }
+        }
+      );
+
       $("#heart").on("click", function (event) {
         event.preventDefault();
-        console.log($("#heart").css("color"));
-        if ($("#heart").css("color") === `rgb(255, 0, 0)`) {
-          $("#heart").css("color", "grey");
-        } else {
-          $("#heart").css("color", "red");
-        }
-        console.log("fav");
+        $.ajax({
+          url: `/api/fav/favMap/${currentUser.id}/${map_id}`,
+        })
+          .then((json) => {
+            if (json.favMap.length > 0) {
+              //delete fav
+              $.ajax({
+                method: "DELETE",
+                url: `/api/fav/`,
+                data: { user_id: currentUser.id, map_id: parseInt(map_id) },
+              })
+                .then((json) => {
+                  console.log("json");
+                  $("#heart").css("color", "grey");
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            } else {
+              //add fav
+              $.ajax({
+                method: "POST",
+                url: `/api/fav/`,
+                data: { user_id: currentUser.id, map_id: parseInt(map_id) },
+              })
+                .then((json) => {
+                  console.log("json");
+                  $("#heart").css("color", "red");
+                  // location.reload();
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       });
 
       $.ajax({ url: `/api/maps/map/${map_id}` }).then((json) => {

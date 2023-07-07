@@ -79,6 +79,10 @@ app.get("/edit/point/:id", (req, res) => {
   res.render("editPointView", { id: req.params.id });
 });
 
+app.get("/my-favorite", (req, res) => {
+  res.render("favMap");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
