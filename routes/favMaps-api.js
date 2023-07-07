@@ -3,14 +3,14 @@ const router = express.Router();
 const favMapsDB = require("../db/queries/favMaps");
 
 router.get("/:id", (req, res) => {
-  // favMapsDB
-  //   .getFavMapsByUserID(req.params)
-  //   .then((maps) => {
-  //     res.json({ maps });
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).json({ error: err.message });
-  //   });
+  favMapsDB
+    .getFavMapsByUserID(req.params.id)
+    .then((maps) => {
+      res.json({ maps });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 router.get("/favMap/:user_id/:map_id", (req, res) => {
