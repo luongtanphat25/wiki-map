@@ -49,6 +49,7 @@ app.use("/api/users", userApiRoutes);
 app.use("/api/maps", mapApiROutes);
 app.use("/api/points", pointApiRoutes);
 app.use("/api/fav", favApiRoutes);
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
